@@ -1,41 +1,42 @@
-const assertArraysEqual = function(arrayOne, arrayTwo) {
-  console.log(eqArrays(arrayOne, arrayTwo) === true ? "✅" : "🛑");
-};
-
-// Compare each element of the two arrays in order
-// Determine if true or false
-// If all true, return true
-// If at least one is false, return false
-const eqArrays = function(arrayOne, arrayTwo) {
-  if (arrayOne.length !== arrayTwo.length) {
-    return false;
-  }
-  
-  for (let i = 0; i < arrayOne.length; i++) {
-    if (arrayOne[i] !== arrayTwo[i]) {
+const eqArrays = function(arr1, arr2) {
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
       return false;
     }
   }
   return true;
 };
 
-// Take in a source array and an array that contains items to remove from the source array
-// Return a new array without the items that were removed
-const without = function(source, itemsToRemove) {
-  let removedSource = [];
-  let itemChecker = 0;
-  // Take the first element of the first array and compare to each element of the second array
+const assertArrayEquals = function(actual, expected) {
+  const compare = eqArrays(actual,expected);
+  if (compare) {
+    console.log(`✅ Assertion Passed: ${actual} === ${expected}`);
+  } else {
+    console.log(`🛑 Assertion Failed: ${actual} !== ${expected}`);
+  }
+};
+
+const without = function(source,itemsToRemove) {
+  const newSource = [];
   for (let i = 0; i < source.length; i++) {
+    let matching = false;
     for (let j = 0; j < itemsToRemove.length; j++) {
       if (source[i] === itemsToRemove[j]) {
-        itemChecker++;
-        // console.log("itemChecker for i =", i, "is:", itemChecker);
+        matching = true;
       }
     }
-    if (itemChecker === 0) {
-      removedSource.push(source[i]);
+    if (!matching) {
+      newSource.push(source[i]);
     }
-    itemChecker = 0;
   }
-  return removedSource;
+  return newSource;
 };
+
+console.log(without([1, 2, 3], [1,3]));
+console.log(without(["1", "LHL", "3"], ['1', "2", "3"]));
+
+const words = ["hello", "world", "lighthouse"];
+without(words, ["lighthouse"]);
+assertArrayEquals(words, ["hello", "world", "lighthouse"]);
+
+module.exports = without;

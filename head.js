@@ -1,18 +1,8 @@
 //FUNCTION IMPLEMENTATION
-// eslint-disable-next-line no-unused-vars
-let array = [];
-const head = function(array) {
-  return array[0];
-};
-const assertEqual = function(a, b) {
-  if (a === b) {
-    console.log('Passed');
-  } else {
-    console.log('Failed');
-  }
+
+const head = function(arr) {
+  return arr[0] ? arr[0] : undefined;
 };
 
-//TEST CODE
-assertEqual(head([5, 6, 7]), 5);
-assertEqual(head(['Hello', 'Lighthouse', 'Labs']), 'Hello');
-assertEqual(head([1]), 1);
+
+module.exports = head;
